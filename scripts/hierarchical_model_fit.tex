@@ -1,0 +1,336 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{lmodern}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  pdftitle={Fitting the stable isotope labelling model to data},
+  pdfauthor={Ada Yan},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+
+\title{Fitting the stable isotope labelling model to data}
+\author{Ada Yan}
+\date{2022-06-09}
+
+\begin{document}
+\maketitle
+
+\hypertarget{introduction}{%
+\section{Introduction}\label{introduction}}
+
+This document outlines how to fit the stable isotope labelling model to
+data.
+
+\hypertarget{code-to-fit-model-to-data}{%
+\section{Code to fit model to data}\label{code-to-fit-model-to-data}}
+
+Model fitting is conducted using a Bayesian framework, using the NUTS
+sampler implemented in Stan. The \texttt{rstan} package provides an
+interface between R and Stan.
+
+Functions used to fit the model to data are in a private github
+repository. Clone this repository:
+
+\begin{verbatim}
+git clone https://github.com/ada-w-yan/kirdynamics
+\end{verbatim}
+
+There are two directory paths that need to be changed in the repository.
+The first is in \texttt{R/read\_data.R}: change line 5 to the directory
+in which the input files are stored.
+
+List of input files:
+
+\begin{itemize}
+\tightlist
+\item
+  Labelling\_Study\_KIR\_Expression\_Data.csv
+\item
+  Labelling\_Study\_Participant\_KIR\_Data.csv
+\item
+  Labelling\_Study\_Participant\_Lymphocyte\_Data.csv
+\item
+  Labelling\_Study\_Participant\_Mono\_and\_Granulocyte\_Data.csv
+\item
+  Labelling\_Study\_Participant\_Saliva\_Data.csv
+\end{itemize}
+
+The second is in \texttt{R/general\_functions.R}: change
+\texttt{"\textasciitilde{}/git\_repos/kirlabelling/"} on line 6 to the
+directory of the git repository.
+
+Then run the following code:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ids }\OtherTok{\textless{}{-}} \FunctionTok{get\_ids}\NormalTok{(}\AttributeTok{threeDL2\_neg =} \ConstantTok{FALSE}\NormalTok{) }\CommentTok{\# get character vector of participant ids}
+\CommentTok{\# for the participant ids wich we\textquotesingle{}re fitting, get all combinations of}
+\CommentTok{\# cell populations (i.e. CD8+ TCM and CD8+ TEMRA) and licensing statuses,}
+\CommentTok{\# excluding NK cells}
+\NormalTok{cells\_lic.status }\OtherTok{\textless{}{-}} \FunctionTok{lapply}\NormalTok{(ids, get\_cells\_lic.status, }\AttributeTok{CD8\_only =} \ConstantTok{TRUE}\NormalTok{)}
+
+\NormalTok{fit\_filename }\OtherTok{\textless{}{-}} \FunctionTok{paste0}\NormalTok{(dir\_name, }\StringTok{"fit.rds"}\NormalTok{)}
+\NormalTok{pred\_filename }\OtherTok{\textless{}{-}} \FunctionTok{paste0}\NormalTok{(dir\_name, }\StringTok{"pred.rds"}\NormalTok{)}
+
+
+\CommentTok{\# name of stan model which we\textquotesingle{}re fitting}
+\NormalTok{model }\OtherTok{\textless{}{-}} \StringTok{"cell\_pop\_null\_model"}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# fit the model: note covariates = "null" means we fit the hierarchical model assuming that}
+\CommentTok{\# parameters for each individual and cell population are drawn from the same}
+\CommentTok{\# distribution regardless of disease status, licensing status etc.}
+\CommentTok{\# The default value of adapt\_delta is 0.8; increasing it improves convergence at the expense of speed}
+\NormalTok{fit }\OtherTok{\textless{}{-}} \FunctionTok{fit\_linear\_stan}\NormalTok{(ids, }\StringTok{"Monocytes"}\NormalTok{, cells\_lic.status, model, }\AttributeTok{covariates =} \StringTok{"null"}\NormalTok{, }\AttributeTok{adapt\_delta =} \FloatTok{0.9}\NormalTok{)}
+\CommentTok{\# save posterior distribution}
+\FunctionTok{saveRDS}\NormalTok{(fit, fit\_filename)}
+
+\CommentTok{\# calculate fraction of label over time for saliva, monocytes and lymphocytes}
+\CommentTok{\# for each draw of the posterior distribution}
+\NormalTok{saliva\_pred\_model }\OtherTok{\textless{}{-}} \StringTok{"saliva\_model\_beta\_0\_two\_phase\_pred"}
+\NormalTok{gm\_pred\_model }\OtherTok{\textless{}{-}} \StringTok{"gm\_model\_pred"}
+\NormalTok{lymphocyte\_pred\_model }\OtherTok{\textless{}{-}} \StringTok{"lymphocyte\_model\_pred"}
+\NormalTok{pred }\OtherTok{\textless{}{-}} \FunctionTok{pred\_null\_from\_fit}\NormalTok{(fit, saliva\_pred\_model, gm\_pred\_model, lymphocyte\_pred\_model)}
+\CommentTok{\# save fraction of label}
+\FunctionTok{saveRDS}\NormalTok{(pred, pred\_filename)}
+\end{Highlighting}
+\end{Shaded}
+
+This code should create two files in the
+\texttt{"hierarchical\_model\_fit\_files} folder: * \texttt{fit.rds}
+which contains the data and the fitted parameters * \texttt{pred.rds}
+which contains the trajectories of the fraction of label for 100 samples
+in the posterior distribution
+
+\hypertarget{code-to-calculate-summary-statistics}{%
+\section{Code to calculate summary
+statistics}\label{code-to-calculate-summary-statistics}}
+
+Now we retrieve \(p\) and \(d^*\) for each lymphocyte population,
+calculate the 2.5, 50 and 97.5th percentiles and standard deviation, and
+write to .rds and .csv files.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# n is the index of the participant id (i.e. ranges from 1 to the number of participants)}
+\CommentTok{\# par\_name can be "p", "dstar" or "delay"}
+\NormalTok{get\_par }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(par\_name) \{}
+\NormalTok{  ids }\OtherTok{\textless{}{-}} \FunctionTok{get\_ids}\NormalTok{(}\AttributeTok{threeDL2\_neg =} \ConstantTok{FALSE}\NormalTok{)}
+\NormalTok{  par\_median\_rds\_filename }\OtherTok{\textless{}{-}} \FunctionTok{gsub}\NormalTok{(}\StringTok{"/fit"}\NormalTok{, }\FunctionTok{paste0}\NormalTok{(}\StringTok{"/"}\NormalTok{, par\_name), fit\_filename)}
+\NormalTok{  par\_median\_csv\_filename }\OtherTok{\textless{}{-}} \FunctionTok{gsub}\NormalTok{(}\StringTok{"rds"}\NormalTok{, }\StringTok{"csv"}\NormalTok{, par\_median\_rds\_filename)}
+\NormalTok{  fit }\OtherTok{\textless{}{-}}\NormalTok{ fit\_filename }\SpecialCharTok{\%\textgreater{}\%}\NormalTok{ readRDS}
+  
+\NormalTok{  inner\_wrapper }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(n) \{}
+    \CommentTok{\# get indices of cell populations for that participant id}
+\NormalTok{    pop\_idx }\OtherTok{\textless{}{-}} \FunctionTok{which}\NormalTok{(fit}\SpecialCharTok{$}\NormalTok{data}\SpecialCharTok{$}\NormalTok{C\_to\_N }\SpecialCharTok{==}\NormalTok{ n)}
+    \CommentTok{\# get disease, functional iKIR count, cell population and licensing status info}
+\NormalTok{    cells\_lic.status }\OtherTok{\textless{}{-}} \FunctionTok{get\_id\_data}\NormalTok{(ids[n]) }\SpecialCharTok{\%\textgreater{}\%}
+      \FunctionTok{filter\_cell\_data}\NormalTok{(}\AttributeTok{CD8\_only =} \ConstantTok{TRUE}\NormalTok{)}
+    \CommentTok{\# get samples from posterior distribution}
+\NormalTok{    par\_name\_indexed }\OtherTok{\textless{}{-}} \FunctionTok{vcapply}\NormalTok{(pop\_idx, index\_par\_name, }\AttributeTok{par\_name =}\NormalTok{ par\_name)}
+\NormalTok{    pars }\OtherTok{\textless{}{-}} \FunctionTok{extract\_fit}\NormalTok{(fit}\SpecialCharTok{$}\NormalTok{fit, }\AttributeTok{N\_samples =} \DecValTok{0}\NormalTok{, par\_name\_indexed, }\AttributeTok{drop =} \ConstantTok{FALSE}\NormalTok{)}
+    
+    \CommentTok{\# calculate median and 95\% ci}
+\NormalTok{    pars\_ci }\OtherTok{\textless{}{-}} \FunctionTok{apply}\NormalTok{(pars, }\DecValTok{2}\NormalTok{, quantile, }\AttributeTok{probs =} \FunctionTok{c}\NormalTok{(}\FloatTok{0.025}\NormalTok{, }\FloatTok{0.5}\NormalTok{, }\FloatTok{0.975}\NormalTok{))}
+\NormalTok{    pars\_sd }\OtherTok{\textless{}{-}} \FunctionTok{apply}\NormalTok{(pars, }\DecValTok{2}\NormalTok{, sd)}
+    \CommentTok{\# collate into tibble}
+\NormalTok{    pars }\OtherTok{\textless{}{-}} \FunctionTok{tibble}\NormalTok{(}\AttributeTok{lower =}\NormalTok{ pars\_ci[}\DecValTok{1}\NormalTok{,],}
+                   \AttributeTok{median =}\NormalTok{ pars\_ci[}\DecValTok{2}\NormalTok{,],}
+                   \AttributeTok{upper =}\NormalTok{ pars\_ci[}\DecValTok{3}\NormalTok{,],}
+                   \AttributeTok{sd =}\NormalTok{ pars\_sd,}
+                   \AttributeTok{id =}\NormalTok{ ids[n],}
+                   \AttributeTok{cells =}\NormalTok{ cells\_lic.status}\SpecialCharTok{$}\NormalTok{cells,}
+                   \AttributeTok{lic.status =}\NormalTok{ cells\_lic.status}\SpecialCharTok{$}\NormalTok{lic.status,}
+                   \AttributeTok{disease =}\NormalTok{ cells\_lic.status}\SpecialCharTok{$}\NormalTok{disease,}
+                   \AttributeTok{functional\_iKIR\_count =}\NormalTok{ cells\_lic.status}\SpecialCharTok{$}\NormalTok{functional\_iKIR\_count,}
+                   \AttributeTok{iKIR\_count =}\NormalTok{ cells\_lic.status}\SpecialCharTok{$}\NormalTok{iKIR\_count)}
+\NormalTok{    pars}
+\NormalTok{  \}}
+\NormalTok{  pars }\OtherTok{\textless{}{-}} \FunctionTok{lapply}\NormalTok{(}\FunctionTok{seq\_along}\NormalTok{(ids), inner\_wrapper) }\SpecialCharTok{\%\textgreater{}\%}
+\NormalTok{    bind\_rows}
+  \FunctionTok{saveRDS}\NormalTok{(pars, }\AttributeTok{file =}\NormalTok{ par\_median\_rds\_filename)}
+  \FunctionTok{write.csv}\NormalTok{(pars, }\AttributeTok{file =}\NormalTok{ par\_median\_csv\_filename, }\AttributeTok{row.names =} \ConstantTok{FALSE}\NormalTok{)}
+\NormalTok{  pars}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# calculate summary statistics for p}
+\FunctionTok{get\_par}\NormalTok{(}\StringTok{"p"}\NormalTok{)}
+\FunctionTok{get\_par}\NormalTok{(}\StringTok{"dstar"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+We do the same for the non-lymphocyte parameters, \(f\), \(r_2\) and
+\(b_w\). Note that \(r_2\) is called \(z\) in the code.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# retrieve non{-}lymphocyte parameters for each participant, calculate summary statistics and}
+\CommentTok{\# write to .rds and .csv files}
+\CommentTok{\# n is the index of the participant id (i.e. ranges from 1 to the number of participants)}
+\CommentTok{\# par\_name can be "frac", "z" or "b\_w"}
+\NormalTok{get\_par\_id }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(par\_name) \{}
+\NormalTok{  ids }\OtherTok{\textless{}{-}} \FunctionTok{get\_ids}\NormalTok{(}\AttributeTok{threeDL2\_neg =} \ConstantTok{FALSE}\NormalTok{)}
+\NormalTok{  fit }\OtherTok{\textless{}{-}}\NormalTok{ fit\_filename }\SpecialCharTok{\%\textgreater{}\%}\NormalTok{ readRDS}
+  
+\NormalTok{  inner\_wrapper }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(n) \{}
+    \CommentTok{\# get disease, functional iKIR count info}
+\NormalTok{    cells\_lic.status }\OtherTok{\textless{}{-}} \FunctionTok{get\_id\_data}\NormalTok{(ids[n]) }\SpecialCharTok{\%\textgreater{}\%}
+      \FunctionTok{slice}\NormalTok{(}\DecValTok{1}\NormalTok{)}
+    \CommentTok{\# get more detailed KIR info}
+\NormalTok{    kir\_data }\OtherTok{\textless{}{-}} \FunctionTok{read\_kir\_data}\NormalTok{(ids[n]) }\SpecialCharTok{\%\textgreater{}\%}
+\NormalTok{      t }\SpecialCharTok{\%\textgreater{}\%}
+\NormalTok{      as\_tibble }\SpecialCharTok{\%\textgreater{}\%}
+      \FunctionTok{select}\NormalTok{(id, kir}\FloatTok{.2}\NormalTok{DL1, kir}\FloatTok{.2}\NormalTok{DL2, kir}\FloatTok{.2}\NormalTok{DL3, kir}\FloatTok{.3}\NormalTok{DL1, kir}\FloatTok{.3}\NormalTok{DL2, }
+\NormalTok{             lic}\FloatTok{.2}\NormalTok{DL1, lic}\FloatTok{.2}\NormalTok{DL2, lic}\FloatTok{.2}\NormalTok{DL3, lic}\FloatTok{.3}\NormalTok{DL1, lic}\FloatTok{.3}\NormalTok{DL2,}
+\NormalTok{             inhibitory.score, inhibitory.score}\FloatTok{.3}\NormalTok{DL2)}
+    \CommentTok{\# get samples from posterior distribution}
+\NormalTok{    par\_name\_indexed }\OtherTok{\textless{}{-}} \FunctionTok{index\_par\_name}\NormalTok{(n, }\AttributeTok{par\_name =}\NormalTok{ par\_name)}
+\NormalTok{    pars }\OtherTok{\textless{}{-}} \FunctionTok{extract\_fit}\NormalTok{(fit}\SpecialCharTok{$}\NormalTok{fit, }\AttributeTok{N\_samples =} \DecValTok{0}\NormalTok{, par\_name\_indexed, }\AttributeTok{drop =} \ConstantTok{TRUE}\NormalTok{)}
+    \CommentTok{\# calculate median and 95\% ci}
+\NormalTok{    pars\_sd }\OtherTok{\textless{}{-}} \FunctionTok{sd}\NormalTok{(pars)}
+\NormalTok{    pars }\OtherTok{\textless{}{-}} \FunctionTok{quantile}\NormalTok{(pars, }\AttributeTok{probs =} \FunctionTok{c}\NormalTok{(}\FloatTok{0.025}\NormalTok{, }\FloatTok{0.5}\NormalTok{, }\FloatTok{0.975}\NormalTok{))}
+    \CommentTok{\# collate into tibble}
+\NormalTok{    pars }\OtherTok{\textless{}{-}} \FunctionTok{tibble}\NormalTok{(}\AttributeTok{par\_name =}\NormalTok{ par\_name,}
+                   \AttributeTok{lower =}\NormalTok{ pars[}\DecValTok{1}\NormalTok{],}
+                   \AttributeTok{median =}\NormalTok{ pars[}\DecValTok{2}\NormalTok{],}
+                   \AttributeTok{upper =}\NormalTok{ pars[}\DecValTok{3}\NormalTok{],}
+                   \AttributeTok{sd =}\NormalTok{ pars\_sd,}
+                   \AttributeTok{id =}\NormalTok{ ids[n],}
+                   \AttributeTok{disease =}\NormalTok{ cells\_lic.status}\SpecialCharTok{$}\NormalTok{disease,}
+                   \AttributeTok{functional\_iKIR\_count =}\NormalTok{ cells\_lic.status}\SpecialCharTok{$}\NormalTok{functional\_iKIR\_count,}
+                   \AttributeTok{iKIR\_count =}\NormalTok{ cells\_lic.status}\SpecialCharTok{$}\NormalTok{iKIR\_count) }\SpecialCharTok{\%\textgreater{}\%}
+      \FunctionTok{full\_join}\NormalTok{(kir\_data, }\AttributeTok{by =} \StringTok{"id"}\NormalTok{)}
+\NormalTok{    pars}
+\NormalTok{  \}}
+  \FunctionTok{lapply}\NormalTok{(}\FunctionTok{seq\_along}\NormalTok{(ids), inner\_wrapper) }\SpecialCharTok{\%\textgreater{}\%}
+\NormalTok{    bind\_rows}
+\NormalTok{\}}
+
+\CommentTok{\# retrive frac, b\_w, z for all participants}
+\NormalTok{all\_no\_lymphocyte\_pars }\OtherTok{\textless{}{-}} \FunctionTok{lapply}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\StringTok{"frac"}\NormalTok{, }\StringTok{"b\_w"}\NormalTok{, }\StringTok{"z"}\NormalTok{), get\_par\_id) }\SpecialCharTok{\%\textgreater{}\%}
+\NormalTok{  bind\_rows}
+\end{Highlighting}
+\end{Shaded}
+
+We also calculate summary statistics for the population-level
+\(\delta\).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# retrieve population{-}level delta}
+\NormalTok{fit }\OtherTok{\textless{}{-}}\NormalTok{ fit\_filename }\SpecialCharTok{\%\textgreater{}\%}\NormalTok{ readRDS}
+\NormalTok{delta }\OtherTok{\textless{}{-}} \FunctionTok{extract\_fit}\NormalTok{(fit}\SpecialCharTok{$}\NormalTok{fit, }\AttributeTok{N\_samples =} \DecValTok{0}\NormalTok{, }\StringTok{"delta"}\NormalTok{, }\AttributeTok{drop =} \ConstantTok{TRUE}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{quantile}\NormalTok{(}\AttributeTok{probs =} \FunctionTok{c}\NormalTok{(}\FloatTok{0.025}\NormalTok{, }\FloatTok{0.5}\NormalTok{, }\FloatTok{0.975}\NormalTok{))}
+\NormalTok{delta }\OtherTok{\textless{}{-}} \FunctionTok{tibble}\NormalTok{(}\AttributeTok{par\_name =} \StringTok{"delta"}\NormalTok{, }\AttributeTok{lower =}\NormalTok{ delta[}\DecValTok{1}\NormalTok{], }\AttributeTok{median =}\NormalTok{ delta[}\DecValTok{2}\NormalTok{], }\AttributeTok{upper =}\NormalTok{ delta[}\DecValTok{3}\NormalTok{])}
+\NormalTok{all\_id\_pars }\OtherTok{\textless{}{-}} \FunctionTok{bind\_rows}\NormalTok{(all\_no\_lymphocyte\_pars, delta)}
+\NormalTok{par\_median\_rds\_filename }\OtherTok{\textless{}{-}} \FunctionTok{gsub}\NormalTok{(}\StringTok{"/fit"}\NormalTok{, }\FunctionTok{paste0}\NormalTok{(}\StringTok{"/"}\NormalTok{, }\StringTok{"id\_pars"}\NormalTok{), fit\_filename)}
+\NormalTok{par\_median\_csv\_filename }\OtherTok{\textless{}{-}} \FunctionTok{gsub}\NormalTok{(}\StringTok{"rds"}\NormalTok{, }\StringTok{"csv"}\NormalTok{, par\_median\_rds\_filename)}
+\FunctionTok{saveRDS}\NormalTok{(all\_id\_pars, }\AttributeTok{file =}\NormalTok{ par\_median\_rds\_filename)}
+\FunctionTok{write.csv}\NormalTok{(all\_id\_pars, }\AttributeTok{file =}\NormalTok{ par\_median\_csv\_filename, }\AttributeTok{row.names =} \ConstantTok{FALSE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+
+\end{document}
